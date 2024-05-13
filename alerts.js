@@ -1,16 +1,22 @@
 const pikudHaoref = require('pikud-haoref-api');
 const { playAlarmSound } = require('./audio');
-const { loadConfig } = require('./config');
+const { loadConfig, loadDistricts } = require('./config');
 
 const COOLDOWN_PERIOD = 5 * 60 * 1000; // 5 minutes
 let cooldownEnd = 0;
+// const districts = loadDistricts();
+// const uniqueAreaNames = Array.from(new Set(districts.map((area) => area.areaname)));
+// console.log(uniqueAreaNames);
 
 // check for alerts
 const checkAlerts = (voiceConnection) => {
   const now = Date.now();
 
   const configData = loadConfig();
-  const scopeCities = configData['scope-cities'];
+  const scopeAreas = configData['scope-areas'];
+  const districts = loadDistricts();
+
+  const cities = getScopeCities(districts, scopeAreas);
 
   pikudHaoref.getActiveAlert((err, alertData) => {
     if (err) return;
@@ -39,6 +45,15 @@ const checkAlerts = (voiceConnection) => {
       }
     }
   });
+};
+
+// filter the relevant cities according the areas in the config
+const getScopeCities = (districts, areas) => {
+  const cityNames = districts
+    .filter((district) => areas.includes(district.areaname))
+    .map((district) => district.label);
+
+  return Array.from(new Set(cityNames));
 };
 
 module.exports = {
