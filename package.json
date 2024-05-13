@@ -1,0 +1,36 @@
+{
+  "name": "discord-alarms-reminder-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "start": "nodemon bot.js",
+    "commands": "node deploy-commands.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "*.json"
+    ],
+    "delay": 2500
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^2.3.0",
+    "@discordjs/voice": "^0.17.0",
+    "@google-cloud/text-to-speech": "^5.2.0",
+    "axios": "^1.6.8",
+    "discord-api-types": "^0.37.83",
+    "discord.js": "^14.15.2",
+    "dotenv": "^16.4.5",
+    "ffmpeg-static": "^5.2.0",
+    "google-tts-api": "^2.0.2",
+    "libsodium-wrappers": "^0.7.13",
+    "pikud-haoref-api": "^3.0.3"
+  }
+}
